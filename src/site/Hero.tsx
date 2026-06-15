@@ -1,7 +1,31 @@
+import { useEffect, useRef } from "react";
 import type { HeroSettings } from "../lib/types";
 import BookingBar from "./BookingBar";
 
 export default function Hero({ hero }: { hero: HeroSettings }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Reinicia o destaque da barra a cada clique em um link "#reservar"
+  // (o CSS :target só dispara na primeira navegação).
+  useEffect(() => {
+    function pulse() {
+      const el = cardRef.current;
+      if (!el) return;
+      el.classList.remove("booking-highlight-active");
+      void el.offsetWidth; // força reflow para reiniciar a animação
+      el.classList.add("booking-highlight-active");
+    }
+    function onClick(e: MouseEvent) {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest('a[href$="#reservar"]')) {
+        // pequeno atraso para acontecer após a rolagem até a barra
+        window.setTimeout(pulse, 60);
+      }
+    }
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
   return (
     <section id="home" className="relative h-[88vh] min-h-[560px] w-full">
       {/* Mídia de fundo isolada num container com overflow-hidden, para não
@@ -42,8 +66,17 @@ export default function Hero({ hero }: { hero: HeroSettings }) {
       </div>
 
       {hero.showBooking && (
-        <div id="reservar" className="absolute inset-x-0 bottom-0 z-30 flex justify-center px-4">
-          <div className="w-full max-w-5xl translate-y-1/2">
+        <div
+          id="reservar"
+          className="booking-anchor absolute inset-x-0 bottom-0 z-30 flex justify-center px-4"
+        >
+          <div
+            ref={cardRef}
+            className="booking-card w-full max-w-5xl translate-y-1/2 rounded-md"
+            onAnimationEnd={(e) =>
+              e.currentTarget.classList.remove("booking-highlight-active")
+            }
+          >
             <BookingBar />
           </div>
         </div>

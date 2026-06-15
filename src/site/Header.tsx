@@ -7,7 +7,6 @@ const NAV = [
   { label: "HOTEL", href: "#sobre" },
   { label: "ACOMODAÇÕES", href: "#acomodacoes" },
   { label: "LAZER", href: "#destaques" },
-  { label: "FOTOS", href: "#galeria" },
   { label: "LOCALIZAÇÃO", href: "#localizacao" },
   { label: "CONTATO", href: "#contato" },
 ];

@@ -43,25 +43,42 @@ export default function Rooms({
                   alt={room.title}
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                {/* Gradiente inferior: garante leitura do título em qualquer foto */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                {/* Camada que escurece a foto inteira ao passar o mouse */}
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/60" />
+
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-                  <h3 className="font-display text-2xl tracking-wide drop-shadow">{room.title}</h3>
-                  <p className="mt-1 text-sm text-white/85">{room.subtitle}</p>
-                  {room.description && (
-                    <p className="mt-2 max-w-md text-sm text-white/75">{room.description}</p>
+                  <h3 className="font-display text-2xl tracking-wide drop-shadow-lg">
+                    {room.title}
+                  </h3>
+                  {room.subtitle && (
+                    <p className="mt-1 text-sm text-white/90 drop-shadow">{room.subtitle}</p>
                   )}
-                  {room.amenities?.length > 0 && (
-                    <ul className="mt-3 flex flex-wrap gap-2">
-                      {room.amenities.map((a) => (
-                        <li
-                          key={a}
-                          className="rounded-full bg-white/15 px-3 py-1 text-xs backdrop-blur"
-                        >
-                          {a}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+
+                  {/* Descrição + comodidades: ocultas em repouso, reveladas no hover.
+                      O grid-rows [0fr → 1fr] anima a altura suavemente. */}
+                  <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                    <div className="overflow-hidden">
+                      {room.description && (
+                        <p className="mt-3 max-w-md text-sm leading-relaxed text-white/90">
+                          {room.description}
+                        </p>
+                      )}
+                      {room.amenities?.length > 0 && (
+                        <ul className="mt-3 flex flex-wrap gap-2">
+                          {room.amenities.map((a) => (
+                            <li
+                              key={a}
+                              className="rounded-full bg-white/20 px-3 py-1 text-xs backdrop-blur"
+                            >
+                              {a}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </article>
             ))}

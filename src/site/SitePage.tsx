@@ -7,7 +7,6 @@ import About from "./About";
 import Highlights from "./Highlights";
 import Rooms from "./Rooms";
 import Location from "./Location";
-import Gallery from "./Gallery";
 import Promo from "./Promo";
 import Testimonials from "./Testimonials";
 import Footer from "./Footer";
@@ -44,7 +43,7 @@ export default function SitePage() {
     );
   }
 
-  const { settings, rooms, highlights, amenities, testimonials, gallery } = content;
+  const { settings, rooms, highlights, amenities, testimonials } = content;
 
   return (
     <div className="bg-white">
@@ -59,11 +58,6 @@ export default function SitePage() {
       />
       <Rooms rooms={rooms} section={settings.roomsSection} />
       <Location location={settings.location} />
-      <Gallery
-        gallery={gallery}
-        section={settings.gallerySection}
-        handle={settings.general.instagramHandle}
-      />
       <Promo promo={settings.promo} />
       <Testimonials testimonials={testimonials} section={settings.testimonialsSection} />
       <Footer general={settings.general} contact={settings.contact} />
