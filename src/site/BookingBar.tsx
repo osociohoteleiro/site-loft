@@ -70,7 +70,7 @@ export default function BookingBar() {
   return (
     <div className="w-full max-w-5xl rounded-md bg-white shadow-xl ring-1 ring-black/5">
       <div className="grid grid-cols-2 items-center gap-px md:grid-cols-[auto_1fr_1fr_1fr_auto]">
-        <div className="px-6 py-4 text-center text-ink md:text-left">
+        <div className="hidden px-6 py-4 text-center text-ink md:block md:text-left">
           <p className="font-display text-sm leading-tight text-ink">
             o melhor
             <br /> preço
@@ -92,12 +92,12 @@ export default function BookingBar() {
           onChildAgesChange={setChildAges}
         />
 
-        <div className="col-span-2 p-3 md:col-span-1">
+        <div className="col-span-2 p-2.5 md:col-span-1 md:p-3">
           <a
             href={buildBookingUrl({ checkin, checkout, adults, childAges })}
             target="_blank"
             rel="noopener noreferrer"
-            className="block rounded border border-brand px-8 py-4 text-center font-medium tracking-widest text-brand transition hover:bg-brand hover:text-white"
+            className="block rounded border border-brand px-8 py-3 text-center font-medium tracking-widest text-brand transition hover:bg-brand hover:text-white md:py-4"
           >
             RESERVAR
           </a>
@@ -109,7 +109,7 @@ export default function BookingBar() {
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="border-l border-gray-200 px-6 py-3 first:border-l-0">
+    <div className="border-l border-gray-200 px-4 py-2.5 first:border-l-0 md:px-6 md:py-3">
       <p className="mb-1 text-xs text-gray-500">{label}</p>
       {children}
     </div>
@@ -180,7 +180,10 @@ function GuestsField({
   }
 
   return (
-    <div className="relative border-l border-gray-200 px-6 py-3" ref={containerRef}>
+    <div
+      className="relative col-span-2 border-t border-gray-200 px-4 py-2.5 md:col-span-1 md:border-l md:border-t-0 md:px-6 md:py-3"
+      ref={containerRef}
+    >
       <p className="mb-1 text-xs text-gray-500">hóspedes</p>
       <button
         type="button"
@@ -188,7 +191,7 @@ function GuestsField({
         className="flex w-full items-center justify-between gap-2 text-left"
         aria-expanded={open}
       >
-        <span className="font-display text-xl text-ink">
+        <span className="font-display text-lg text-ink md:text-xl">
           {guestsSummary(adults, children)}
         </span>
         <svg
@@ -361,7 +364,7 @@ function DateInput({
       onClick={openPicker}
       className="relative block w-full cursor-pointer text-left"
     >
-      <span className="font-display text-xl text-ink">{formatBR(value)}</span>
+      <span className="font-display text-lg text-ink md:text-xl">{formatBR(value)}</span>
       <input
         ref={inputRef}
         type="date"
